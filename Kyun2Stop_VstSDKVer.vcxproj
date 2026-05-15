@@ -158,9 +158,11 @@
     <ClCompile Include="..\..\ProgramFiles\vstsdk\public.sdk\source\main\dllmain.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="Kyun2StopController.cpp" />
+    <ClCompile Include="Kyun2StopGUIEditor.cpp" />
     <ClCompile Include="Kyun2StopProcessor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Kyun2StopGUIEditor.h" />
     <ClInclude Include="Kyun2StopController.h" />
     <ClInclude Include="Kyun2StopDefine.h" />
     <ClInclude Include="Kyun2StopFuid.h" />
