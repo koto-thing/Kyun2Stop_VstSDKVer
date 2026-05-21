@@ -1,0 +1,9 @@
+#pragma once
+
+#define PARAM_TRIGGER_TAG       100
+#define PARAM_USE_SYNC_TAG      101
+#define PARAM_STOP_TIME_TAG     102
+#define PARAM_SYNC_BEAT_TAG     103
+#define PARAM_START_TIME_TAG    104
+#define PARAM_CURVE_TAG         105
+#define PARAM_ENABLE_FILTER_TAG 106

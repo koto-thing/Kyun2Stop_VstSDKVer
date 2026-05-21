@@ -10,7 +10,10 @@ namespace Vst {
 	class Kyun2StopController : public EditController {
 	public:
 		// クラスを初期化する関数
-		tresult PLUGIN_API initialize(FUnknown* context);
+		tresult PLUGIN_API initialize(FUnknown* context) override;
+
+		// GUIエディタを作成
+		IPlugView* PLUGIN_API createView(FIDString name) SMTG_OVERRIDE;
 
 		// Kyun2StopControllerクラスのインスタンスを作成するための関数
 		static FUnknown* createInstance(void*) { return (IEditController*)new Kyun2StopController(); }

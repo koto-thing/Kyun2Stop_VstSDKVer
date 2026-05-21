@@ -72,13 +72,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetExt>.vst3</TargetExt>
-    <IncludePath>D:\ProgramFiles\vstsdk;D:\ProgramFiles\vstsdk\vstgui4;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\ProgramFiles\vstsdk\out\build\x64-Debug\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(ProjectDir)x64\Debug\$(ProjectName).vst3\Contents\x86_64-win\</OutDir>
+    <IncludePath>D:\ProgramFiles\vst3sdk;D:\ProgramFiles\vst3sdk\vstgui4;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\ProgramFiles\vst3sdk\out\build\x64-Debug\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetExt>.vst3</TargetExt>
-    <IncludePath>D:\ProgramFiles\vstsdk;D:\ProgramFiles\vstsdk\vstgui4;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\ProgramFiles\vstsdk\out\build\x64-Release\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(ProjectDir)x64\Release\$(ProjectName).vst3\Contents\x86_64-win\</OutDir>
+    <IncludePath>D:\ProgramFiles\vst3sdk;D:\ProgramFiles\vst3sdk\vstgui4;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\ProgramFiles\vst3sdk\out\build\x64-Release\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -153,20 +155,33 @@
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
+    <PostBuildEvent>
+      <Command>if not exist "$(CommonProgramFiles)\VST3\$(ProjectName).vst3" mkdir "$(CommonProgramFiles)\VST3\$(ProjectName).vst3" &amp; xcopy /E /I /Y "$(TargetDir)..\.." "$(CommonProgramFiles)\VST3\$(ProjectName).vst3\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\ProgramFiles\vstsdk\public.sdk\source\main\dllmain.cpp" />
-    <ClCompile Include="Factory.cpp" />
-    <ClCompile Include="Kyun2StopController.cpp" />
-    <ClCompile Include="Kyun2StopGUIEditor.cpp" />
-    <ClCompile Include="Kyun2StopProcessor.cpp" />
+    <ClCompile Include="src\dllmain.cpp" />
+    <ClCompile Include="src\Engine\DelayLine.cpp" />
+    <ClCompile Include="src\Engine\OnePoleLowpass.cpp" />
+    <ClCompile Include="src\Engine\TapeStopEngine.cpp" />
+    <ClCompile Include="src\Factory.cpp" />
+    <ClCompile Include="src\Kyun2StopController.cpp" />
+    <ClCompile Include="src\Kyun2StopGUIEditor.cpp" />
+    <ClCompile Include="src\Kyun2StopProcessor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Kyun2StopGUIEditor.h" />
-    <ClInclude Include="Kyun2StopController.h" />
-    <ClInclude Include="Kyun2StopDefine.h" />
-    <ClInclude Include="Kyun2StopFuid.h" />
-    <ClInclude Include="Kyun2StopProcessor.h" />
+    <ClInclude Include="src\Engine\DelayLine.h" />
+    <ClInclude Include="src\Engine\OnePoleLowpass.h" />
+    <ClInclude Include="src\Engine\TapeStopEngine.h" />
+    <ClInclude Include="src\Kyun2StopController.h" />
+    <ClInclude Include="src\Kyun2StopDefine.h" />
+    <ClInclude Include="src\Kyun2StopFuid.h" />
+    <ClInclude Include="src\Kyun2StopGUIEditor.h" />
+    <ClInclude Include="src\Kyun2StopParams.h" />
+    <ClInclude Include="src\Kyun2StopProcessor.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="..\..\ProgramFiles\vstsdk\public.sdk\source\main\" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
