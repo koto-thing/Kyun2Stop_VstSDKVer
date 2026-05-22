@@ -10,13 +10,13 @@ namespace Vst {
 		// 基底クラスの初期化を実行
 		tresult result = EditController::initialize(context);
 		if (result == kResultTrue) {
-			parameters.addParameter(STR16("Trigger"), STR16(""), 1, 0, 0, ParameterInfo::kCanAutomate, PARAM_TRIGGER_TAG);
-			parameters.addParameter(STR16("BPM Sync"), STR16(""), 1, 0, 0, ParameterInfo::kCanAutomate, PARAM_USE_SYNC_TAG);
-			parameters.addParameter(STR16("Stop Time (Sec)"), STR16("s"), 0, 0.5, 0, ParameterInfo::kCanAutomate, PARAM_STOP_TIME_TAG);
-			parameters.addParameter(STR16("Stop Beat"), STR16(""), 4, 1, 0, ParameterInfo::kCanAutomate, PARAM_SYNC_BEAT_TAG);
-			parameters.addParameter(STR16("Start Time"), STR16("s"), 0, 0.5, 0, ParameterInfo::kCanAutomate, PARAM_START_TIME_TAG);
-			parameters.addParameter(STR16("Curve"), STR16(""), 3, 0, 0, ParameterInfo::kCanAutomate, PARAM_CURVE_TAG);
-			parameters.addParameter(STR16("Low-pass Effect"), STR16(""), 1, 1, 0, ParameterInfo::kCanAutomate, PARAM_ENABLE_FILTER_TAG);
+			parameters.addParameter(STR16("Trigger"), STR16(""), 1, 0.0, ParameterInfo::kCanAutomate, PARAM_TRIGGER_TAG);
+			parameters.addParameter(STR16("BPM Sync"), STR16(""), 1, 0.0, ParameterInfo::kCanAutomate, PARAM_USE_SYNC_TAG);
+			parameters.addParameter(STR16("Stop Time (Sec)"), STR16("s"), 0, 0.5, ParameterInfo::kCanAutomate, PARAM_STOP_TIME_TAG);
+			parameters.addParameter(STR16("Stop Beat"), STR16(""), 4, 1.0, ParameterInfo::kCanAutomate, PARAM_SYNC_BEAT_TAG);
+			parameters.addParameter(STR16("Start Time"), STR16("s"), 0, 0.5, ParameterInfo::kCanAutomate, PARAM_START_TIME_TAG);
+			parameters.addParameter(STR16("Curve"), STR16(""), 3, 0.0, ParameterInfo::kCanAutomate, PARAM_CURVE_TAG);
+			parameters.addParameter(STR16("Low-pass Effect"), STR16(""), 1, 1.0, ParameterInfo::kCanAutomate, PARAM_ENABLE_FILTER_TAG);
 		}
 
 		result = kResultTrue;
@@ -28,6 +28,14 @@ namespace Vst {
 			return new Kyun2StopGUIEditor(this);
 		}
 		return nullptr;
+	}
+
+	tresult PLUGIN_API Kyun2StopController::setParamNormalized(ParamID tag, ParamValue value) {
+		tresult result = EditController::setParamNormalized(tag, value);
+		if (result == kResultTrue && editor) {
+			editor->updateControl(tag, value);
+		}
+		return result;
 	}
 
 } }

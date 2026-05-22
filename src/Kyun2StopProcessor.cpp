@@ -8,6 +8,8 @@
 #include "Kyun2StopProcessor.h"
 #include "Kyun2StopDefine.h"
 
+std::atomic<float> gPeakMeter{0.0f};
+
 namespace Steinberg {
 namespace Vst {
 	/**
@@ -154,6 +156,7 @@ namespace Vst {
 			TapeCurve curveType = static_cast<TapeCurve>(std::clamp(curve, 0, 3));
 			SyncBeat beatType = static_cast<SyncBeat>(std::clamp(syncBeat, 0, 4));
 
+			float maxVal = 0.0f;
 			for (int32 i = 0; i < data.numSamples; ++i) {
 				float inFrame[2] = { inL[i], inR[i] };
 				float outFrame[2] = { 0.0f, 0.0f };
@@ -174,7 +177,19 @@ namespace Vst {
 				outL[i] = outFrame[0];
 				if (stereoOut)
 					outR[i] = outFrame[1];
+
+				maxVal = std::max(maxVal, std::abs(outFrame[0]));
+				if (stereoOut) {
+					maxVal = std::max(maxVal, std::abs(outFrame[1]));
+				}
 			}
+
+			float currentPeak = gPeakMeter.load(std::memory_order_relaxed);
+			currentPeak *= 0.90f; // Decay over blocks
+			if (maxVal > currentPeak) {
+				currentPeak = maxVal;
+			}
+			gPeakMeter.store(currentPeak, std::memory_order_relaxed);
 
 			return kResultTrue;
 		}

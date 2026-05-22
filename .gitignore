@@ -79,3 +79,9 @@ Debug/
 Release/
 x64/
 Win32/
+
+# Ignore the antigravitycli hidden directory
+.antigravitycli/
+
+# Ignore the Intermediate directory
+Kyun2Sto.3ff5b298/

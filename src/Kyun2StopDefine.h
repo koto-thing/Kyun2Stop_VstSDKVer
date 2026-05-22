@@ -7,3 +7,6 @@
 #define PARAM_START_TIME_TAG    104
 #define PARAM_CURVE_TAG         105
 #define PARAM_ENABLE_FILTER_TAG 106
+
+#include <atomic>
+extern std::atomic<float> gPeakMeter;

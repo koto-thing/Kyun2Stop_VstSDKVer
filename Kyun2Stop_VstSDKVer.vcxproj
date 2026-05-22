@@ -156,7 +156,7 @@
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
     <PostBuildEvent>
-      <Command>if not exist "$(CommonProgramFiles)\VST3\$(ProjectName).vst3" mkdir "$(CommonProgramFiles)\VST3\$(ProjectName).vst3" &amp; xcopy /E /I /Y "$(TargetDir)..\.." "$(CommonProgramFiles)\VST3\$(ProjectName).vst3\"</Command>
+      <Command>if not exist "$(LOCALAPPDATA)\Programs\Common\VST3\$(ProjectName).vst3" mkdir "$(LOCALAPPDATA)\Programs\Common\VST3\$(ProjectName).vst3" &amp; xcopy /E /I /Y "$(TargetDir)..\.." "$(LOCALAPPDATA)\Programs\Common\VST3\$(ProjectName).vst3\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

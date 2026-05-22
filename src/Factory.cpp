@@ -17,7 +17,7 @@
 #define KYUN2STOP_NAME "Kyun2Stop_v2"
 
 // VST3のプラグインバージョンを定義
-#define KYUN2STOP_VERSION "1.0.0"
+#define KYUN2STOP_VERSION "1.0.2"
 
 // VST3のカテゴリを定義
 #define KYUN2STOP_SUBCATEGORIES Vst::PlugType::kFx

@@ -16,6 +16,12 @@
 
 namespace VSTGUI {
 class CVSTGUITimer;
+class CTextLabel;
+class COptionMenu;
+class CCheckBox;
+class CSlider;
+class CTextButton;
+class CView;
 }
 
 namespace Steinberg {
@@ -38,21 +44,26 @@ public:
 	// GUIウィンドウのコントローラを操作したときに呼び出される関数
 	void valueChanged(CControl* pControl) override;
 
+	// コントローラーからのパラメータ更新を受け取る関数
+	void updateControl(ParamID tag, ParamValue value);
+
 private:
 	void sendParamNormalized(ParamID tag, ParamValue value);
-	void updateLabels();
+	void updateControlStates();
 
 	CTextLabel* stopTimeLabel = nullptr;
 	CTextLabel* startTimeLabel = nullptr;
-	CTextLabel* curveLabel = nullptr;
-	CTextLabel* syncBeatLabel = nullptr;
+	COptionMenu* curveMenu = nullptr;
+	CCheckBox* syncBox = nullptr;
+	CSlider* stopSlider = nullptr;
+	CSlider* startSlider = nullptr;
+	CTextButton* triggerButton = nullptr;
 	CView* backgroundView = nullptr;
 	VSTGUI::CVSTGUITimer* uiTimer = nullptr;
 
 	float stopTimeSec = 0.5f;
 	float startTimeSec = 0.5f;
 	int32 curveIndex = 0;
-	int32 syncBeatIndex = 1;
 
 	// VSTGUIEditorクラスの各種設定を自作GUIクラスに置き換えるマクロ
 	DELEGATE_REFCOUNT(VSTGUIEditor)
